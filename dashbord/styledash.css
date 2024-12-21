@@ -1,0 +1,286 @@
+/* Styles globaux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Signika Negative", sans-serif;
+    background-color: #E8DFCA;
+}
+
+/* Header */
+header {
+    background-color: #1A4D2E;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+h1 a {
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Menu Burger */
+.burger {
+    display: none;
+    font-size: 30px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Navigation principale */
+.main-nav {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav li {
+    position: relative;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.main-nav > li > a:hover {
+    color: #E9A300;
+}
+
+/* Sous-menu */
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #1A4D2E;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.main-nav li:hover .submenu {
+    display: block;
+}
+
+.submenu li a {
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.submenu li a:hover {
+    color: #E9A300;
+    background-color: #153d25;
+    padding-left: 25px;
+}
+
+/* Responsive styles for navigation */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        background-color: #1A4D2E;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .submenu {
+        display: none;
+        position: static;
+        width: 100%;
+        background-color: #153d25;
+    }
+
+    .submenu.active {
+        display: block;
+    }
+
+    .submenu li a {
+        padding-left: 40px;
+    }
+
+    .submenu li a:hover {
+        padding-left: 45px;
+    }
+}
+
+/* Titres */
+.title.beige {
+    background-color: #E8DFCA;
+    padding: 20px;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.sous-menu.vert {
+    color: white;
+    background-color: #2f4f37;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Boutons */
+.button:hover {
+    transform: scale(1.15); 
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Dashboard */
+.dash1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+/* Table Styles */
+.table-responsive {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+}
+
+.table th {
+    background-color: #2f4f37;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table tr:hover {
+    background-color: #E9A300;
+}
+
+/* Formulaire */
+form {
+    background-color: #f8f9fa;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input[type="text"],
+form select,
+form input[type="file"],
+form button {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+form input[type="text"]:focus,
+form select:focus,
+form input[type="file"]:focus {
+    border-color: #2f4f37;
+    outline: none;
+}
+
+form select {
+    color: #333;
+    background-color: #ffffff;
+}
+
+form button {
+    background-color: #2f4f37;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form button:hover {
+    background-color: #256a2f;
+    transform: scale(1.05);
+}
+
+/* Responsive Table Styles */
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
