@@ -1,0 +1,576 @@
+/* Styles globaux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Signika Negative", sans-serif;
+    
+}
+/* Header */
+header {
+    background-color: #1A4D2E;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+h1 a {
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Menu burger */
+.burger {
+    display: none;
+    font-size: 30px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Navigation principale */
+.main-nav {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav li {
+    position: relative;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    transition: color 0.3s ease; /* Ajout d'une transition douce */
+}
+
+/* Effet de survol sur les liens du menu principal */
+.main-nav > li > a:hover {
+    color: #E9A300;
+}
+
+/* Sous-menu */
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: #1A4D2E;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    z-index: 1000;
+    transition: all 0.3s ease; /* Ajout d'une transition douce */
+}
+
+.main-nav li:hover .submenu {
+    display: block;
+}
+
+.submenu li a {
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: all 0.3s ease; /* Ajout d'une transition douce */
+}
+
+/* Effet de survol sur les liens du sous-menu */
+.submenu li a:hover {
+    color: #E9A300;
+    background-color: #153d25; /* Légère variation du fond pour plus d'effet */
+    padding-left: 25px; /* Décalage léger vers la droite au survol */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        background-color: #1A4D2E;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    .submenu {
+        display: none;
+        position: static;
+        width: 100%;
+        background-color: #153d25;
+    }
+
+    .submenu.active {
+        display: block;
+    }
+
+    .submenu li a {
+        padding-left: 40px;
+    }
+
+    /* Effet de survol adapté pour mobile */
+    .submenu li a:hover {
+        padding-left: 45px; /* Ajustement du décalage pour mobile */
+    }
+}
+
+/* Styles pour le footer */
+footer {
+    background-color: #2f4f37;
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    min-width: 250px;
+    margin: 20px;
+    position: relative; /* Pour positionner la ligne séparatrice */
+}
+
+/* Ajout des lignes séparatrices */
+.footer-section:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -20px; /* Position de la ligne */
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: white;
+}
+
+.footer-section h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #E9A300;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin: 10px auto;
+    }
+
+    /* Modification des séparateurs pour le responsive */
+    .footer-section:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 50%; /* Centre la ligne horizontale */
+        transform: translateX(-50%); /* Centre parfaitement la ligne */
+        bottom: -10px;
+        width: 80%; /* Largeur de la ligne horizontale */
+        height: 1px;
+        background-color: white;
+        top: auto; /* Annule la position top */
+        right: auto; /* Annule la position right */
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin: 10px auto;
+    }
+}
+
+/*BOUTON VOIR PLUS*/
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #E9A300;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin: 10px;
+}
+
+/* Effet de survol */
+.button:hover {
+    transform: scale(1.15); 
+}
+
+
+.sous-menu.vert {
+    color: white;
+    background-color: #2f4f37;
+    display: inline-block; /* Ne prend que la largeur du contenu */
+    padding: 10px 20px; /* Ajoute de l'espace interne */
+    border-radius: 20px; /* Arrondit les bords */
+    max-width: 300px; /* Limite la largeur maximale */
+    text-align: center; /* Centre le texte */
+}
+
+.sous-menu.beige {
+    color: black;
+    background-color: #E8DFCA;
+    display: inline-block; /* Ne prend que la largeur du contenu */
+    padding: 10px 20px; /* Ajoute de l'espace interne */
+    border-radius: 20px; /* Arrondit les bords */
+    max-width: 300px; /* Limite la largeur maximale */
+    text-align: center; /* Centre le texte */
+}
+
+/* Mise en page des sections */
+.mainpage, 
+.mainpage2, 
+.mainpage3, 
+.mainpage4, 
+.mainpage5,
+.mainpage6,
+.maineco1,
+.maineco2 {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+    gap: 30px;
+    padding: 20px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+.mainpage,
+.mainpage3,
+.mainpage5,
+.maineco1 {
+    background-color: #E8DFCA;
+}
+
+.mainpage2,
+.mainpage4,
+.mainpage6,
+.maineco2 {
+    background-color: #4F6F52;
+}
+
+.title.beige {
+    background-color: #E8DFCA;
+    padding: 20px;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.title.vert {
+    background-color: #4F6F52;
+    padding: 20px;
+    text-align: left;
+    padding-left: 50px;
+}
+
+/* Style des images et contenu */
+.imgZoo, 
+.imgZoo2, 
+.imgZoo3 {
+    width: 350px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bienvenue2, 
+.horaire {
+    background-color: #4F6F52;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    min-height: 150px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    
+}
+
+.mainavis {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pseudo {
+    font-weight: bold;
+    color: #2f4f37;
+}
+
+.avis {
+    color: #333;
+    margin-top: 10px;
+}
+
+
+.bienvenue {
+    background-color: #E8DFCA;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    min-height: 150px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Alignement des éléments centraux */
+.savane, 
+.train-main, 
+.jungle, 
+.restauration-main, 
+.marais, 
+.visite-main {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    display: flex; /*ajout*/
+    flex-direction: column;
+    align-items:center ;/*fin d'ajout*/
+    border-radius: 20px;
+    margin: 20px; /* Espacement entre les éléments */
+}
+
+/* Images dans les colonnes */
+.savane img, 
+.jungle img, 
+.marais img, 
+.train-main img, 
+.restauration-main img, 
+.visite-main img {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+}
+
+.imgeco {
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/*page contact*/
+
+
+.formulaire {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Fieldsets */
+fieldset {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+/* Styles des champs de formulaire */
+.formulaire label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+
+.formulaire input[type="text"],
+.formulaire input[type="email"],
+.formulaire input[type="password"],
+.formulaire textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+/* Mise en page des divs pour alignement des champs */
+#div_nm, #div_fnm {
+    display: inline-block;
+    width: 48%;
+}
+
+#div_nm {
+    margin-right: 4%;
+}
+
+/* Styles pour les textarea */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    resize: none; /* Empêche le redimensionnement */
+}
+/* Conteneur des services */
+.services-container {
+    display: flex;
+    gap: 20px;  /* Espacement entre les cartes */
+    justify-content: center;  /* Centrer les cartes horizontalement */
+}
+
+/* Styles des cartes */
+.card {
+    width: 250px;  /* Largeur fixe pour chaque carte */
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;  /* Animation au survol */
+    background-color: #E8DFCA;
+}
+.card-link {
+    text-decoration: none; /* Supprime la décoration du lien */
+    color: inherit; /* Hérite la couleur du texte de l'élément parent (ici, la carte) */
+}
+
+/* Survol des cartes */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Style de l'image dans les cartes */
+.card-img-top {
+    width: 250px;
+    height: 250px;  /* Fixe la hauteur de l'image */
+    object-fit: cover;
+}
+
+/* Titre et description */
+.card-title {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Bouton "Voir plus" */
+.text-center .btn {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+}
+
+
+/* Responsive Design pour petits écrans */
+@media (max-width: 768px) {
+    .mainpage, 
+    .mainpage2, 
+    .mainpage3, 
+    .mainpage4, 
+    .mainpage5,
+    .mainpage6,
+    .maineco1 {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .imgZoo, 
+    .horaire, 
+    .imgZoo2, 
+    .bienvenue, 
+    .bienvenue2, 
+    .imgZoo3, 
+    .savane, 
+    .jungle, 
+    .marais,
+    .mainavis,
+    .imgeco {
+        width: 90%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .button {
+        margin-top: 10px;
+        padding: 10px 20px;
+    }
+
+.title.beige,
+.title.vert {
+    text-align: center;
+}
+/* formulaire */
+    #div_nm, #div_fnm {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
