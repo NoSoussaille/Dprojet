@@ -1,4 +1,8 @@
-<?php require_once 'headerdash.php'; ?>
+<?php require_once 'headerdash.php'; 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 
 <div class="title beige">
     <h3 class="sous-menu vert">Bienvenue, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
@@ -15,22 +19,7 @@ if (isset($_GET['error']) && $_GET['error'] == 'acces_refuse') {
 // Connexion à la base de données
 require_once 'db_connexion.php';
 
-// Récupérer les horaires actuels
-$horaires_result = $mysqli->query("SELECT * FROM horaires_ouverture");
 
-// Traitement du formulaire de mise à jour des horaires
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['role']) && $_SESSION['role'] === 'administrateur') {
-    foreach ($_POST['horaires'] as $jour => $horaire) {
-        $ouverture = $mysqli->real_escape_string($horaire['ouverture']);
-        $fermeture = $mysqli->real_escape_string($horaire['fermeture']);
-        
-        $stmt = $mysqli->prepare("UPDATE horaires_ouverture SET ouverture = ?, fermeture = ? WHERE jour = ?");
-        $stmt->bind_param("sss", $ouverture, $fermeture, $jour);
-        $stmt->execute();
-    }
-    header("Location: dashbord.php");
-    exit();
-}
 
 // Récupérer le top 5 des animaux les plus populaires
 $popular_animals_result = $mysqli->query("SELECT prenom, race, popularite FROM animaux ORDER BY popularite DESC LIMIT 5");
@@ -64,24 +53,55 @@ $popular_animals_result = $mysqli->query("SELECT prenom, race, popularite FROM a
         </tbody>
     </table>
 </div>
+<?php
+use MongoDB\Client;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+// Connexion à MongoDB
+try {
+    $client = new Client("mongodb+srv://Cluster54037:marwane123@cluster54037.zom2y.mongodb.net/ma_base?retryWrites=true&w=majority");
+    $collection = $client->ma_base->horaires;
+} catch (Exception $e) {
+    die("Erreur de connexion MongoDB : " . $e->getMessage());
+}
+// Si le formulaire est soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['horaires'])) {
+    foreach ($_POST['horaires'] as $jour => $horaire) {
+        $ouverture = $horaire['ouverture'];
+        $fermeture = $horaire['fermeture'];
+        
+        // Mettre à jour les horaires dans la collection
+        $collection->updateOne(
+            ['jour' => $jour], // Filtrer par jour
+            ['$set' => ['ouverture' => $ouverture, 'fermeture' => $fermeture]] // Mettre à jour les champs
+        );
+    }
+    echo "<p>Horaires mis à jour avec succès !</p>";
+}
+
+// Récupérer les horaires actuels
+$horaires = $collection->find();
+
+?>
+
 <?php if ($_SESSION['role'] === 'administrateur'): ?>
     <div class="title beige">
         <h3 class="sous-menu vert">Modifier les Horaires d'Ouverture</h3>
     </div>
     <div class="dash1">
         <form method="POST">
-            <?php while ($horaire = $horaires_result->fetch_assoc()): ?>
-                <?php
-                    // Formater les horaires sans les secondes
-                    $ouverture = date('H:i', strtotime($horaire['ouverture']));
-                    $fermeture = date('H:i', strtotime($horaire['fermeture']));
-                ?>
+            <?php foreach ($horaires as $horaire): ?>
                 <div class="mb-3">
-                    <label for="ouverture_<?php echo $horaire['jour']; ?>" class="form-label"><?php echo ucfirst($horaire['jour']); ?></label>
-                    <input type="time" name="horaires[<?php echo $horaire['jour']; ?>][ouverture]" value="<?php echo $ouverture; ?>" required>
-                    <input type="time" name="horaires[<?php echo $horaire['jour']; ?>][fermeture]" value="<?php echo $fermeture; ?>" required>
+                    <label for="ouverture_<?php echo $horaire['jour']; ?>" class="form-label">
+                        <?php echo ucfirst($horaire['jour']); ?>
+                    </label>
+                    <input type="time" name="horaires[<?php echo $horaire['jour']; ?>][ouverture]" 
+                           value="<?php echo $horaire['ouverture']; ?>" required>
+                    <input type="time" name="horaires[<?php echo $horaire['jour']; ?>][fermeture]" 
+                           value="<?php echo $horaire['fermeture']; ?>" required>
                 </div>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
             <button type="submit" class="btn btn-primary">Mettre à jour</button>
         </form>
     </div>
@@ -90,7 +110,7 @@ $popular_animals_result = $mysqli->query("SELECT prenom, race, popularite FROM a
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+<script>  
     // Supprime le paramètre "error" de l'URL après affichage
     if (window.location.search.includes("error=acces_refuse")) {
         const url = new URL(window.location);
